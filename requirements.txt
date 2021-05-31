@@ -1,3 +1,4 @@
 dgl
 numpy
 torch
+networkx

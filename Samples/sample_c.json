@@ -1,0 +1,64 @@
+{
+    "charges": {
+        "S1": "T1",
+        "S2": "T2",
+        "S3": "T3"
+    },
+    "routers": [
+        "A",
+        "B",
+        "C"
+    ],
+    "edges": [
+        {
+            "from": "S1",
+            "to": "A",
+            "init": 2
+        },
+        {
+            "from": "S1",
+            "to": "B",
+            "init": 1
+        },
+        {
+            "from": "S2",
+            "to": "B",
+            "init": 2
+        },
+        {
+            "from": "S2",
+            "to": "C",
+            "init": 1
+        },
+        {
+            "from": "S3",
+            "to": "C",
+            "init": 1
+        },
+        {
+            "from": "A",
+            "to": "T1",
+            "init": 2
+        },
+        {
+            "from": "B",
+            "to": "T1",
+            "init": 1
+        },
+        {
+            "from": "B",
+            "to": "T2",
+            "init": 2
+        },
+        {
+            "from": "C",
+            "to": "T2",
+            "init": 1
+        },
+        {
+            "from": "C",
+            "to": "T3",
+            "init": 1
+        }
+    ]
+}
