@@ -1,7 +1,7 @@
 import json
 import networkx as nx
 
-INPUT = '../Samples/sample_c.json'
+INPUT = '../Samples/sample_h.json'
 MAX_NUM_ITERATION = 200
 ROUTERS = []
 CHARGES = {}
