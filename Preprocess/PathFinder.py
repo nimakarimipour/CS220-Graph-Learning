@@ -1,7 +1,7 @@
 import json
 import networkx as nx
 
-INPUT = '../Samples/sample_h.json'
+INPUT = '../Samples/alu/alu.json'
 MAX_NUM_ITERATION = 200
 ROUTERS = []
 CHARGES = {}
@@ -13,7 +13,9 @@ def init_graph():
     with open(INPUT) as json_file:
         data = json.load(json_file)
         CHARGES = data['charges']
-            
+        print("NUM OF CHARGES: ", len(data['charges'].keys())) 
+        print("NUM OF ROUTERS: ", len(data['routers']))
+        print("NUM OF EDGES: ", len(data['edges']))      
         for router in data['routers']:
             ROUTERS.append(router)
             G.add_node(router, h_n = 1, p_n = 1, total = 1 * 1, selected = 0)
@@ -22,10 +24,11 @@ def init_graph():
             G.add_edge(edge['from'], edge['to'], weight=1, b_n=edge['init'])
 
 def find_non_disjoint_states(paths):
+    global CHARGES
     vistied_nodes = {}
     for path in paths:
         for node in path:
-            if node in vistied_nodes.keys():
+            if node in vistied_nodes.keys() and node not in CHARGES.values():
                 vistied_nodes[node] = vistied_nodes[node] + 1
             else:
                 vistied_nodes[node] = 1
@@ -59,12 +62,17 @@ def update_graph(non_disjoint_nodes):
         else:
             node['p_n'] = 1
 
+def show_meta(paths):
+    print("MAX DEPTH FOUND: ", max([len(i) for i in paths]))
+
 init_graph()
 paths = []
 for i in range(0, MAX_NUM_ITERATION):
+    print("NEW ITERATION BEGINE:", i)
     paths = execute_shortest_path()
-    print("Iteration {}: {}".format(i + 1, paths))
+    show_meta(paths)
     non_disjoint_nodes = find_non_disjoint_states(paths)
+    print("NUM OF NON DISJOINT NODES: ", len(non_disjoint_nodes))
     if(len(non_disjoint_nodes) == 0):
         break
     update_graph(non_disjoint_nodes)

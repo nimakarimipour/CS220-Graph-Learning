@@ -1,8 +1,3 @@
-Placement_File: alu4.place Placement_ID: SHA256:1a52ed0d3d649a87ec433ed6fed0d4c9bac13cd37b652f2c291d1323b5979db3
-Array size: 13 x 13 logic blocks.
-
-Routing:
-
 Net 0 (n_n1222)
 
 Node:	6811	SOURCE (5,8)  Class: 9  Switch: 0
