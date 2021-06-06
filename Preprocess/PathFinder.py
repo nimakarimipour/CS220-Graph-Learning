@@ -1,7 +1,19 @@
 import json
 import networkx as nx
+import sys
+
+LOG = False
+
+if(len(sys.argv) == 2):
+    if(sys.argv[1] == "log"):
+        LOG = True
+        print("Logging is enabled")
+    else:
+        raise Exception('Argument passed can only be "log"')
+
 
 INPUT = '../Samples/alu/alu.json'
+OUT_DIR = '../Samples/alu/'
 MAX_NUM_ITERATION = 200
 ROUTERS = []
 CHARGES = {}
@@ -73,6 +85,17 @@ for i in range(0, MAX_NUM_ITERATION):
     show_meta(paths)
     non_disjoint_nodes = find_non_disjoint_states(paths)
     print("NUM OF NON DISJOINT NODES: ", len(non_disjoint_nodes))
+
+    if(LOG):
+        log = {'num_of_non_disjoint': non_disjoint_nodes, 'paths': paths}
+        nodes_state = {}
+        for key in G.nodes:
+            node = G.nodes[key]
+            nodes_state[key] = {'p_n': node['p_n'], 'h_n': node['h_n']}
+        log['states'] = nodes_state
+        with open(OUT_DIR + "iteration_{}.json".format(i), 'w') as outfile:
+            json.dump(log, outfile)
+
     if(len(non_disjoint_nodes) == 0):
         break
     update_graph(non_disjoint_nodes)
